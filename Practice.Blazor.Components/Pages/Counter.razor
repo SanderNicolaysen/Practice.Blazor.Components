@@ -1,0 +1,45 @@
+﻿@page "/counter"
+
+<h1>Counter</h1>
+
+<p>Current count: @currentCount</p>
+
+@if (counterType == CounterType.Normal)
+{
+    <button class="btn btn-primary" @onclick="IncrementCount">Normal Count</button>
+}
+else if (counterType == CounterType.Exponential)
+{
+    <button class="btn btn-primary" @onclick="ExponentialCount">Exponential Count</button>
+}
+
+@code {
+
+    [Parameter]
+    public int currentCount { get; set; }
+
+    [Parameter]
+    public EventCallback<int> OnCountChanged { get; set; }
+
+    [Parameter]
+    public CounterType counterType { get; set; }
+
+
+    private void IncrementCount()
+    {
+        currentCount++;
+        OnCountChanged.InvokeAsync(currentCount);
+    }
+
+    private void ExponentialCount()
+    {
+        currentCount = currentCount * currentCount;
+        OnCountChanged.InvokeAsync(currentCount);
+    }
+
+    public enum CounterType
+    {
+        Normal,
+        Exponential
+    }
+}

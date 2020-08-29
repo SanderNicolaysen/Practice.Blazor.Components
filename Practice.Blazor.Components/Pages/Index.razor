@@ -1,0 +1,20 @@
+﻿@page "/"
+
+<h4>My count: @currentCount</h4>
+
+<!-- Page will refresh/redraw because of return value from component in case return value is used. This don't need to happen if there is no return value. -->
+<!-- Therefor if literal number is passed in it won't update because same value will be sent each time -->
+
+<Counter currentCount="@currentCount" OnCountChanged="UpdateCurrentCount" counterType="@Counter.CounterType.Normal"></Counter>
+
+<Counter currentCount="@currentCount" OnCountChanged="UpdateCurrentCount" counterType="@Counter.CounterType.Exponential"></Counter>
+
+
+@code {
+    private int currentCount { get; set; }
+
+    private void UpdateCurrentCount(int counter)
+    {
+        currentCount = counter;
+    }
+}
